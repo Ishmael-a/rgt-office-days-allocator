@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  passwordHash  String
+  name      String
+  role      Role     @default(EMPLOYEE)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sessions Session[]
+  employee Employee?
+  managedEmployees Employee[] @relation("ManagerRelation")
+
+  @@map("users")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String   // For calendar color coding
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employees Employee[]
+
+  @@map("projects")
+}
+
+model Employee {
+  userId       String     @unique
+  departmentId String
+  projectId    String?
+  managerId    String?
+  workType     WorkType
+  officeDays   Int        @default(2) // Days per week for hybrid
+  preferences  Json?      // Preferred days as JSON array
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department  Department  @relation(fields: [departmentId], references: [id])
+  project     Project?    @relation(fields: [projectId], references: [id])
+  manager     User?       @relation("ManagerRelation", fields: [managerId], references: [id])
+
+  allocations Allocation[]
+
+  @@id(name: "employeeId", [userId, departmentId])
+  @@map("employees")
+}
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  color       String   // For calendar color coding
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employees Employee[]
+
+  @@map("departments")
+}
+
+
+model Allocation {
+  id         String   @id @default(cuid())
+  userId      String
+  departmentId String
+  month      Int      // 1-12
+  year       Int
+  weekNumber Int      // Week of the year
+  monday     Boolean  @default(false)
+  tuesday    Boolean  @default(false)
+  wednesday  Boolean  @default(false)
+  thursday   Boolean  @default(false)
+  friday     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [userId, departmentId], references: [userId, departmentId], onDelete: Cascade)
+
+  @@unique([userId, departmentId, month, year, weekNumber])
+  @@map("allocations")
+}
+
+
+model AllocationHistory {
+  id           String           @id @default(cuid())
+  month        Int
+  year         Int
+  action       AllocationAction
+  changedBy    String
+  employeeId   String?
+  oldAllocation Json?
+  newAllocation Json?
+  reason       String?
+  createdAt    DateTime         @default(now())
+
+  @@map("allocation_history")
+}
+
+model Session{
+  id        String @id
+  expiresAt DateTime
+  userId    String
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum WorkType {
+  HYBRID
+  ONSITE
+  REMOTE
+}
+
+
+enum AllocationAction {
+  GENERATED
+  RESHUFFLED
+  MANUAL_CHANGE
+  PREFERENCE_UPDATE
+}
