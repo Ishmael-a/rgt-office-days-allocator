@@ -1,39 +1,83 @@
-import React from 'react';
+'use client'
+
+import React, { useCallback, useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEmployeesQuery } from '@/hooks/use-employee';
+import { WorkType } from '@/types';
+import { EmployeeWithUserAndDepartment } from '@/features/employee/types';
+import { months } from '@/constants';
+import { getDaysInMonth, getFirstDayOfMonth } from '@/utils/day-month-year';
+import Link from 'next/link';
+import { allocationsPath, calendarPath, departmentsPath, employeesPath } from '@/app/paths';
 
 type ChartType = { name: string, value: number, color: string }[]
+type WorkTypeValues = `${WorkType}`;
+type CountByWorkType = { workType: WorkTypeValues, count: number };
+type CountByDepartmentId = { departmentId: WorkTypeValues, count: number };
 
-const page = () => {
-  // Sample data for the charts - in a real app, this would come from props or API
-  const departmentData = [
-    { name: 'Engineering', value: 45, color: 'bg-slate-800 dark:bg-slate-300' },
-    { name: 'Marketing', value: 25, color: 'bg-slate-600 dark:bg-slate-400' },
-    { name: 'Sales', value: 15, color: 'bg-slate-400 dark:bg-slate-500' },
-    { name: 'HR', value: 15, color: 'bg-slate-300 dark:bg-slate-600' }
-  ];
+const workTypeColorData = {
+  'HYBRID':'bg-slate-300 dark:bg-slate-600',
+  'ONSITE': 'bg-slate-400 dark:bg-slate-500',
+  'REMOTE': 'bg-slate-500 dark:bg-slate-400' 
+}
 
-  const workTypeData = [
-    { name: 'Hybrid', value: 48, color: 'bg-slate-300 dark:bg-slate-600' },
-    { name: 'On-site', value: 32, color: 'bg-slate-400 dark:bg-slate-500' },
-    { name: 'Remote', value: 20, color: 'bg-slate-500 dark:bg-slate-400' }
-  ];
+export default function DashboardPage(){
+  const [currentMonth] = useState(new Date().getMonth() + 1) // Months are 0-indexed
+  const [currentYear] = useState(new Date().getFullYear())
+  const [selectedDate, setSelectedDate] = useState<number | null>(null)
 
-  // Calendar data
-  // const currentDate = new Date();
-  const currentMonth = 'October 2024'; // Based on the image
+  const { data: employeesData, isLoading } = useEmployeesQuery(
+    {
+      query: {
+        withDepartment: true,
+        withCount: true
+      }
+    }
+  )
+  const employees: EmployeeWithUserAndDepartment[] = useMemo(() => employeesData?.data.data.employees || [], [employeesData])
+  const departmentData:ChartType = useMemo(() => employeesData?.data?.data.countByDeptIdAndWorktype.byDepartment.map((item:CountByDepartmentId) =>{ 
+    const employee = employees.find((emp) => emp.departmentId === item.departmentId);
+    return ({
+      name: employee?.department?.name,
+      color: employee?.department?.color,
+      value: item.count,
+    })
+  }) || [], [employees, employeesData])
+  const workTypeData:ChartType = useMemo(() => employeesData?.data?.data.countByDeptIdAndWorktype.byWorkType.map((item:CountByWorkType) =>{ 
+    return ({
+      name: item.workType,
+      color: workTypeColorData[item.workType],
+      value: item.count,
+    })
+  }) || [], [employees, employeesData])
+  const totalEmployees = useMemo(() => employeesData?.data?.meta.count ?? 0, [employeesData])
+  const hybridEmployees = useMemo(() => employeesData?.data?.data.countByDeptIdAndWorktype.byWorkType.find((item:CountByWorkType) => item.workType === WorkType.HYBRID).count ?? 0, [employeesData])
+  const onsiteEmployees = useMemo(() => employeesData?.data?.data.countByDeptIdAndWorktype.byWorkType.find((item:CountByWorkType) => item.workType === WorkType.ONSITE).count ?? 0, [employeesData])
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   
-  // Calendar grid for October 2024
-  const calendarDays = [
-    null, null, 1, 2, 3, 4, 5,
-    6, 7, 8, 9, 10, 11, 12,
-    13, 14, 15, 16, 17, 18, 19,
-    20, 21, 22, 23, 24, 25, 26,
-    27, 28, 29, 30, 31
-  ];
 
-  const selectedDate = 5; // Highlighted date from the image
+  const getCalendarDays = useCallback(() => {
+    console.log('Calculating calendar days for', currentMonth, currentYear);
+    const daysInMonth = getDaysInMonth(currentYear, currentMonth+1)
+    const firstDay = getFirstDayOfMonth(currentYear, currentMonth+1)
+    setSelectedDate(firstDay)
+    console.log("First day of month:", firstDay);
+    const days = []
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null)
+    }
+
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push(day)
+    }
+
+    return days
+  }, [currentMonth, currentYear])
+  const calendarDays:(number|null)[] = useMemo(() => getCalendarDays(), []);
+
 
   const renderBarChart = (data: ChartType, maxValue = 50) => {
     return (
@@ -46,11 +90,12 @@ const page = () => {
             <div className="flex-1 relative">
               <div className="h-6 bg-muted rounded-sm overflow-hidden">
                 <div 
-                  className={`h-full ${item.color} transition-all duration-500 ease-out`}
-                  style={{ width: `${(item.value / maxValue) * 100}%` }}
+                  className={`h-full transition-all duration-500 ease-out`}
+                  style={{ width: `${(item.value / maxValue) * 100}%`, backgroundColor: item.color }}
                 />
               </div>
             </div>
+              <span className='text-xs'>{(item.value / maxValue) * 100}%</span>
           </div>
         ))}
       </div>
@@ -70,9 +115,12 @@ const page = () => {
                 style={{ height: `${(item.value / maxValue) * 80}px` }}
               />
             </div>
-            <span className="text-xs text-muted-foreground text-center">
-              {item.name}
-            </span>
+            <div className='flex flex-col justify-center'>
+              <span className="text-xs text-muted-foreground text-center">
+                {item.name}
+              </span>
+              <span className='text-center text-xs'>{item.value}</span>
+            </div>
           </div>
         ))}
       </div>
@@ -98,7 +146,7 @@ const page = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">250</div>
+            <div className="text-3xl font-bold">{ isLoading ? "Loading.." : totalEmployees  }</div>
           </CardContent>
         </Card>
 
@@ -109,7 +157,7 @@ const page = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">120</div>
+            <div className="text-3xl font-bold">{ isLoading ? "Loading.." : hybridEmployees  }</div>
           </CardContent>
         </Card>
 
@@ -120,7 +168,7 @@ const page = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">80</div>
+            <div className="text-3xl font-bold">{ isLoading ? "Loading.." : onsiteEmployees  }</div>
           </CardContent>
         </Card>
       </div>
@@ -151,60 +199,81 @@ const page = () => {
           </Card>
         </div>
       </div>
-
-      {/* Upcoming Schedule */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold">Upcoming Schedule</h2>
+      
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        {/* Upcoming Schedule */}
+        <div className="space-y-6 w-full">
+          <h2 className="text-xl font-semibold">Upcoming Schedule</h2>
+          
+          <Card className="w-full ">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <button className="p-1 hover:bg-muted rounded">
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <h3 className="text-lg font-medium">{months[currentMonth]}, {currentYear}</h3>
+                <button className="p-1 hover:bg-muted rounded">
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {/* Days of week header */}
+                <div className="grid grid-cols-7 gap-1">
+                  {daysOfWeek.map((day, index) => (
+                    <div key={index} className="h-8 flex items-center justify-center text-sm font-medium text-muted-foreground">
+                      {day}
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Calendar grid */}
+                <div className="grid grid-cols-7 gap-1">
+                  {calendarDays.map((day, index) => (
+                    <div key={index} className="h-8 flex items-center justify-center">
+                      {day && (
+                        <button 
+                          className={`
+                            h-8 w-8 rounded-full text-sm transition-colors
+                            ${index === selectedDate 
+                              ? 'bg-primary text-primary-foreground font-medium' 
+                              : 'hover:bg-muted text-foreground'
+                            }
+                          `}
+                        >
+                          {day}
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
         
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <button className="p-1 hover:bg-muted rounded">
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <h3 className="text-lg font-medium">{currentMonth}</h3>
-              <button className="p-1 hover:bg-muted rounded">
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {/* Days of week header */}
-              <div className="grid grid-cols-7 gap-1">
-                {daysOfWeek.map((day, index) => (
-                  <div key={index} className="h-8 flex items-center justify-center text-sm font-medium text-muted-foreground">
-                    {day}
-                  </div>
-                ))}
-              </div>
-              
-              {/* Calendar grid */}
-              <div className="grid grid-cols-7 gap-1">
-                {calendarDays.map((day, index) => (
-                  <div key={index} className="h-8 flex items-center justify-center">
-                    {day && (
-                      <button 
-                        className={`
-                          h-8 w-8 rounded-full text-sm transition-colors
-                          ${day === selectedDate 
-                            ? 'bg-primary text-primary-foreground font-medium' 
-                            : 'hover:bg-muted text-foreground'
-                          }
-                        `}
-                      >
-                        {day}
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className='space-y-6 '>
+          <h2 className="text-xl font-semibold">Quick Actions</h2>
+          <Card className=''>
+            <CardContent className="space-y-2">
+                  <Link href={employeesPath()} className="block w-full rounded-lg border p-3 text-sm hover:bg-accent">
+                    Employees
+                  </Link>
+                  <Link href={departmentsPath()} className="block w-full rounded-lg border p-3 text-sm hover:bg-accent">
+                    Manage Departments
+                  </Link>
+                  <Link href={calendarPath()} className="block w-full rounded-lg border p-3 text-sm hover:bg-accent">
+                    View Calendar
+                  </Link>
+                  <Link href={allocationsPath()} className="block w-full rounded-lg border p-3 text-sm hover:bg-accent">
+                    View Allocations
+                  </Link>
+            </CardContent>
+          </Card>
+        </div>
       </div>
+
     </div>
   );
 };
-
-export default page;

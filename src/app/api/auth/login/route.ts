@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const { email, password } = await request.json()
 
     if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 })
+      return NextResponse.json({ success:false, message: "Email and password are required" }, { status: 400 })
     }
     
     const validatedData= await signInSchema.validate({ email, password }, { abortEarly: false })
@@ -23,14 +23,14 @@ export async function POST(request: NextRequest) {
     })
 
     if (!user) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+      return NextResponse.json({ success:false, message: "Invalid credentials" }, { status: 401 })
     }
  
 
     const validPassword = await comparePassword(validatedData.password, user.passwordHash);
     // Demo password check
     if (!validPassword) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+      return NextResponse.json({ success:false, message: "Invalid credentials" }, { status: 401 })
     }
 
     const sessionToken = generateSessionToken();
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error("Login error:", error)
-    return NextResponse.json({ error: "Login Failed. Internal server error" }, { status: 500 })
+    return NextResponse.json({ success:false, message: "Login Failed. Internal server error" }, { status: 500 })
   }
 
   // redirect(dashboardPath())

@@ -133,6 +133,8 @@ const seed = async () => {
         await prisma.project.deleteMany();
         await prisma.employee.deleteMany();
         await prisma.department.deleteMany();
+        await prisma.allocation.deleteMany();
+        await prisma.allocationHistory.deleteMany();
         await prisma.user.deleteMany();
 
         const passwordHash = await hash('demo123', 10)
@@ -144,8 +146,13 @@ const seed = async () => {
             }))
         })
 
+        const managers = dbUsers.filter((manager) => manager.role === UserRole.MANAGER)
+
         const dbDepartments = await prisma.department.createManyAndReturn({
-            data: departments
+            data: departments.map(dep => ({
+              ...dep,
+              managerId: managers[randomInt(managers.length)].id
+            }))
         })
 
         const dbProjects = await prisma.$transaction([
@@ -158,14 +165,14 @@ const seed = async () => {
             dbUsers
             .filter((u) => u.role !== UserRole.ADMIN)
             .map((user, index) => 
-                prisma.employee.create({
-                    data: {
-                        ...employees[index % employees.length],
-                        userId: user.id,
-                        departmentId: dbDepartments[index % dbDepartments.length].id,
-                        projectId: dbProjects[randomInt(dbProjects.length)].id,
-                    }
-                })
+              prisma.employee.create({
+                  data: {
+                      ...employees[index % employees.length],
+                      userId: user.id,
+                      departmentId: dbDepartments[index % dbDepartments.length].id,
+                      projectId: dbProjects[randomInt(dbProjects.length)].id,
+                  }
+              })
             )
         )
 

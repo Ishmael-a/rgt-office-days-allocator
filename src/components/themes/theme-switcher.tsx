@@ -2,17 +2,14 @@
 
 import { useTheme } from 'next-themes'
 import React from 'react'
-import { Button } from '../ui/button';
 import { LucideMoon, LucideSun } from 'lucide-react';
 
 const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
   return (
-    <Button
-      variant={"outline"}
-      size={"lg"}
+    <div 
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className='flex gap-2'
+      className='flex gap-2 items-center'
     >
       <LucideSun
         className="
@@ -29,8 +26,8 @@ const ThemeSwitcher = () => {
           duration-300 ease-in-out" 
       />
 
-      Toggle Theme
-    </Button>
+      <span>Toggle Theme</span>
+    </div>
   );
 }
 

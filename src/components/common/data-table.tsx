@@ -16,6 +16,7 @@ interface DataTableProps<T = any> {
   searchPlaceholder?: string;
   onSearch?: (query: string) => void;
   className?: string;
+  showCount?: boolean;
 }
 
 export const DataTable = <T,>({ 
@@ -24,6 +25,7 @@ export const DataTable = <T,>({
   searchable = false, 
   searchPlaceholder = "Search...",
   onSearch,
+  showCount = false,
   className = ""
 }: DataTableProps<T>) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,7 +43,7 @@ export const DataTable = <T,>({
   };
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-6 ${className}`}>
       {searchable && (
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -54,19 +56,29 @@ export const DataTable = <T,>({
         </div>
       )}
       
-      <div className="border rounded-lg overflow-hidden">
+      <div className="border rounded-lg overflow-x-scroll">
         <table className="w-full">
           <thead className="bg-muted/50">
             <tr>
               {columns.map((column) => (
                 <th 
                   key={column.key}
-                  className={`px-6 py-3 text-left text-sm font-medium text-muted-foreground ${column.className || ''}`}
+                  className={`px-6 py-3 ${column.header==="Name" ? "text-left":"text-center"} text-sm font-medium text-muted-foreground ${column.className || ''}`}
                 >
                   {column.header}
                 </th>
               ))}
             </tr>
+            {showCount && (<tr>
+              {columns.map((column) => (
+                <th 
+                  key={column.key}
+                  className={`px-6 py-3 text-center text-sm font-medium text-muted-foreground ${column.className || ''}`}
+                >
+                  {column.header === "Name" ? "" : data.filter((item) => item[column.key as keyof T]).length ?? 0 }
+                </th>
+              ))}
+            </tr>)}
           </thead>
           <tbody className="divide-y divide-border">
             {data.map((row, rowIndex) => (

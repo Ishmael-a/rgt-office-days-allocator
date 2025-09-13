@@ -144,7 +144,6 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   userId: 'userId',
   departmentId: 'departmentId',
   projectId: 'projectId',
-  managerId: 'managerId',
   workType: 'workType',
   officeDays: 'officeDays',
   preferences: 'preferences',
@@ -157,6 +156,7 @@ exports.Prisma.DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   color: 'color',
+  managerId: 'managerId',
   description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -184,7 +184,6 @@ exports.Prisma.AllocationHistoryScalarFieldEnum = {
   year: 'year',
   action: 'action',
   changedBy: 'changedBy',
-  employeeId: 'employeeId',
   oldAllocation: 'oldAllocation',
   newAllocation: 'newAllocation',
   reason: 'reason',

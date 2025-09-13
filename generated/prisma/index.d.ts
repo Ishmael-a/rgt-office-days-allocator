@@ -1448,12 +1448,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     sessions: number
-    managedEmployees: number
+    managedDepartments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
-    managedEmployees?: boolean | UserCountOutputTypeCountManagedEmployeesArgs
+    managedDepartments?: boolean | UserCountOutputTypeCountManagedDepartmentsArgs
   }
 
   // Custom InputTypes
@@ -1477,8 +1477,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountManagedEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
+  export type UserCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DepartmentWhereInput
   }
 
 
@@ -1761,7 +1761,7 @@ export namespace Prisma {
     updatedAt?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     employee?: boolean | User$employeeArgs<ExtArgs>
-    managedEmployees?: boolean | User$managedEmployeesArgs<ExtArgs>
+    managedDepartments?: boolean | User$managedDepartmentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1799,7 +1799,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     employee?: boolean | User$employeeArgs<ExtArgs>
-    managedEmployees?: boolean | User$managedEmployeesArgs<ExtArgs>
+    managedDepartments?: boolean | User$managedDepartmentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1810,7 +1810,7 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       employee: Prisma.$EmployeePayload<ExtArgs> | null
-      managedEmployees: Prisma.$EmployeePayload<ExtArgs>[]
+      managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2216,7 +2216,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     employee<T extends User$employeeArgs<ExtArgs> = {}>(args?: Subset<T, User$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    managedEmployees<T extends User$managedEmployeesArgs<ExtArgs> = {}>(args?: Subset<T, User$managedEmployeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    managedDepartments<T extends User$managedDepartmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2684,27 +2684,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.managedEmployees
+   * User.managedDepartments
    */
-  export type User$managedEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$managedDepartmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the Department
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: DepartmentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the Department
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: DepartmentOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    cursor?: DepartmentWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
   }
 
   /**
@@ -3846,7 +3846,6 @@ export namespace Prisma {
     userId: string | null
     departmentId: string | null
     projectId: string | null
-    managerId: string | null
     workType: $Enums.WorkType | null
     officeDays: number | null
     isActive: boolean | null
@@ -3858,7 +3857,6 @@ export namespace Prisma {
     userId: string | null
     departmentId: string | null
     projectId: string | null
-    managerId: string | null
     workType: $Enums.WorkType | null
     officeDays: number | null
     isActive: boolean | null
@@ -3870,7 +3868,6 @@ export namespace Prisma {
     userId: number
     departmentId: number
     projectId: number
-    managerId: number
     workType: number
     officeDays: number
     preferences: number
@@ -3893,7 +3890,6 @@ export namespace Prisma {
     userId?: true
     departmentId?: true
     projectId?: true
-    managerId?: true
     workType?: true
     officeDays?: true
     isActive?: true
@@ -3905,7 +3901,6 @@ export namespace Prisma {
     userId?: true
     departmentId?: true
     projectId?: true
-    managerId?: true
     workType?: true
     officeDays?: true
     isActive?: true
@@ -3917,7 +3912,6 @@ export namespace Prisma {
     userId?: true
     departmentId?: true
     projectId?: true
-    managerId?: true
     workType?: true
     officeDays?: true
     preferences?: true
@@ -4017,10 +4011,9 @@ export namespace Prisma {
     userId: string
     departmentId: string
     projectId: string | null
-    managerId: string | null
     workType: $Enums.WorkType
     officeDays: number
-    preferences: JsonValue | null
+    preferences: string[]
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -4049,7 +4042,6 @@ export namespace Prisma {
     userId?: boolean
     departmentId?: boolean
     projectId?: boolean
-    managerId?: boolean
     workType?: boolean
     officeDays?: boolean
     preferences?: boolean
@@ -4059,7 +4051,6 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
     allocations?: boolean | Employee$allocationsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
@@ -4068,7 +4059,6 @@ export namespace Prisma {
     userId?: boolean
     departmentId?: boolean
     projectId?: boolean
-    managerId?: boolean
     workType?: boolean
     officeDays?: boolean
     preferences?: boolean
@@ -4078,14 +4068,12 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     departmentId?: boolean
     projectId?: boolean
-    managerId?: boolean
     workType?: boolean
     officeDays?: boolean
     preferences?: boolean
@@ -4095,14 +4083,12 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectScalar = {
     userId?: boolean
     departmentId?: boolean
     projectId?: boolean
-    managerId?: boolean
     workType?: boolean
     officeDays?: boolean
     preferences?: boolean
@@ -4111,12 +4097,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "departmentId" | "projectId" | "managerId" | "workType" | "officeDays" | "preferences" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "departmentId" | "projectId" | "workType" | "officeDays" | "preferences" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
     allocations?: boolean | Employee$allocationsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4124,13 +4109,11 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
   }
   export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
     project?: boolean | Employee$projectArgs<ExtArgs>
-    manager?: boolean | Employee$managerArgs<ExtArgs>
   }
 
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4139,17 +4122,15 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       department: Prisma.$DepartmentPayload<ExtArgs>
       project: Prisma.$ProjectPayload<ExtArgs> | null
-      manager: Prisma.$UserPayload<ExtArgs> | null
       allocations: Prisma.$AllocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
       departmentId: string
       projectId: string | null
-      managerId: string | null
       workType: $Enums.WorkType
       officeDays: number
-      preferences: Prisma.JsonValue | null
+      preferences: string[]
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -4550,7 +4531,6 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     department<T extends DepartmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentDefaultArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     project<T extends Employee$projectArgs<ExtArgs> = {}>(args?: Subset<T, Employee$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    manager<T extends Employee$managerArgs<ExtArgs> = {}>(args?: Subset<T, Employee$managerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     allocations<T extends Employee$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4584,10 +4564,9 @@ export namespace Prisma {
     readonly userId: FieldRef<"Employee", 'String'>
     readonly departmentId: FieldRef<"Employee", 'String'>
     readonly projectId: FieldRef<"Employee", 'String'>
-    readonly managerId: FieldRef<"Employee", 'String'>
     readonly workType: FieldRef<"Employee", 'WorkType'>
     readonly officeDays: FieldRef<"Employee", 'Int'>
-    readonly preferences: FieldRef<"Employee", 'Json'>
+    readonly preferences: FieldRef<"Employee", 'String[]'>
     readonly isActive: FieldRef<"Employee", 'Boolean'>
     readonly createdAt: FieldRef<"Employee", 'DateTime'>
     readonly updatedAt: FieldRef<"Employee", 'DateTime'>
@@ -5006,25 +4985,6 @@ export namespace Prisma {
   }
 
   /**
-   * Employee.manager
-   */
-  export type Employee$managerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Employee.allocations
    */
   export type Employee$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5081,6 +5041,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     color: string | null
+    managerId: string | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5090,6 +5051,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     color: string | null
+    managerId: string | null
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5099,6 +5061,7 @@ export namespace Prisma {
     id: number
     name: number
     color: number
+    managerId: number
     description: number
     createdAt: number
     updatedAt: number
@@ -5110,6 +5073,7 @@ export namespace Prisma {
     id?: true
     name?: true
     color?: true
+    managerId?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -5119,6 +5083,7 @@ export namespace Prisma {
     id?: true
     name?: true
     color?: true
+    managerId?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -5128,6 +5093,7 @@ export namespace Prisma {
     id?: true
     name?: true
     color?: true
+    managerId?: true
     description?: true
     createdAt?: true
     updatedAt?: true
@@ -5210,6 +5176,7 @@ export namespace Prisma {
     id: string
     name: string
     color: string
+    managerId: string | null
     description: string | null
     createdAt: Date
     updatedAt: Date
@@ -5236,10 +5203,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color?: boolean
+    managerId?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     employees?: boolean | Department$employeesArgs<ExtArgs>
+    manager?: boolean | Department$managerArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
@@ -5247,46 +5216,58 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color?: boolean
+    managerId?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manager?: boolean | Department$managerArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     color?: boolean
+    managerId?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manager?: boolean | Department$managerArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectScalar = {
     id?: boolean
     name?: boolean
     color?: boolean
+    managerId?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "color" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "color" | "managerId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | Department$employeesArgs<ExtArgs>
+    manager?: boolean | Department$managerArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type DepartmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    manager?: boolean | Department$managerArgs<ExtArgs>
+  }
+  export type DepartmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    manager?: boolean | Department$managerArgs<ExtArgs>
+  }
 
   export type $DepartmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Department"
     objects: {
       employees: Prisma.$EmployeePayload<ExtArgs>[]
+      manager: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       color: string
+      managerId: string | null
       description: string | null
       createdAt: Date
       updatedAt: Date
@@ -5685,6 +5666,7 @@ export namespace Prisma {
   export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     employees<T extends Department$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Department$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    manager<T extends Department$managerArgs<ExtArgs> = {}>(args?: Subset<T, Department$managerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5717,6 +5699,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Department", 'String'>
     readonly name: FieldRef<"Department", 'String'>
     readonly color: FieldRef<"Department", 'String'>
+    readonly managerId: FieldRef<"Department", 'String'>
     readonly description: FieldRef<"Department", 'String'>
     readonly createdAt: FieldRef<"Department", 'DateTime'>
     readonly updatedAt: FieldRef<"Department", 'DateTime'>
@@ -5969,6 +5952,10 @@ export namespace Prisma {
      */
     data: DepartmentCreateManyInput | DepartmentCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6039,6 +6026,10 @@ export namespace Prisma {
      * Limit how many Departments to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6129,6 +6120,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
+  }
+
+  /**
+   * Department.manager
+   */
+  export type Department$managerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -7382,7 +7392,6 @@ export namespace Prisma {
     year: number | null
     action: $Enums.AllocationAction | null
     changedBy: string | null
-    employeeId: string | null
     reason: string | null
     createdAt: Date | null
   }
@@ -7393,7 +7402,6 @@ export namespace Prisma {
     year: number | null
     action: $Enums.AllocationAction | null
     changedBy: string | null
-    employeeId: string | null
     reason: string | null
     createdAt: Date | null
   }
@@ -7404,7 +7412,6 @@ export namespace Prisma {
     year: number
     action: number
     changedBy: number
-    employeeId: number
     oldAllocation: number
     newAllocation: number
     reason: number
@@ -7429,7 +7436,6 @@ export namespace Prisma {
     year?: true
     action?: true
     changedBy?: true
-    employeeId?: true
     reason?: true
     createdAt?: true
   }
@@ -7440,7 +7446,6 @@ export namespace Prisma {
     year?: true
     action?: true
     changedBy?: true
-    employeeId?: true
     reason?: true
     createdAt?: true
   }
@@ -7451,7 +7456,6 @@ export namespace Prisma {
     year?: true
     action?: true
     changedBy?: true
-    employeeId?: true
     oldAllocation?: true
     newAllocation?: true
     reason?: true
@@ -7551,7 +7555,6 @@ export namespace Prisma {
     year: number
     action: $Enums.AllocationAction
     changedBy: string
-    employeeId: string | null
     oldAllocation: JsonValue | null
     newAllocation: JsonValue | null
     reason: string | null
@@ -7583,7 +7586,6 @@ export namespace Prisma {
     year?: boolean
     action?: boolean
     changedBy?: boolean
-    employeeId?: boolean
     oldAllocation?: boolean
     newAllocation?: boolean
     reason?: boolean
@@ -7596,7 +7598,6 @@ export namespace Prisma {
     year?: boolean
     action?: boolean
     changedBy?: boolean
-    employeeId?: boolean
     oldAllocation?: boolean
     newAllocation?: boolean
     reason?: boolean
@@ -7609,7 +7610,6 @@ export namespace Prisma {
     year?: boolean
     action?: boolean
     changedBy?: boolean
-    employeeId?: boolean
     oldAllocation?: boolean
     newAllocation?: boolean
     reason?: boolean
@@ -7622,14 +7622,13 @@ export namespace Prisma {
     year?: boolean
     action?: boolean
     changedBy?: boolean
-    employeeId?: boolean
     oldAllocation?: boolean
     newAllocation?: boolean
     reason?: boolean
     createdAt?: boolean
   }
 
-  export type AllocationHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "month" | "year" | "action" | "changedBy" | "employeeId" | "oldAllocation" | "newAllocation" | "reason" | "createdAt", ExtArgs["result"]["allocationHistory"]>
+  export type AllocationHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "month" | "year" | "action" | "changedBy" | "oldAllocation" | "newAllocation" | "reason" | "createdAt", ExtArgs["result"]["allocationHistory"]>
 
   export type $AllocationHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AllocationHistory"
@@ -7640,7 +7639,6 @@ export namespace Prisma {
       year: number
       action: $Enums.AllocationAction
       changedBy: string
-      employeeId: string | null
       oldAllocation: Prisma.JsonValue | null
       newAllocation: Prisma.JsonValue | null
       reason: string | null
@@ -8073,7 +8071,6 @@ export namespace Prisma {
     readonly year: FieldRef<"AllocationHistory", 'Int'>
     readonly action: FieldRef<"AllocationHistory", 'AllocationAction'>
     readonly changedBy: FieldRef<"AllocationHistory", 'String'>
-    readonly employeeId: FieldRef<"AllocationHistory", 'String'>
     readonly oldAllocation: FieldRef<"AllocationHistory", 'Json'>
     readonly newAllocation: FieldRef<"AllocationHistory", 'Json'>
     readonly reason: FieldRef<"AllocationHistory", 'String'>
@@ -9520,7 +9517,6 @@ export namespace Prisma {
     userId: 'userId',
     departmentId: 'departmentId',
     projectId: 'projectId',
-    managerId: 'managerId',
     workType: 'workType',
     officeDays: 'officeDays',
     preferences: 'preferences',
@@ -9536,6 +9532,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     color: 'color',
+    managerId: 'managerId',
     description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9569,7 +9566,6 @@ export namespace Prisma {
     year: 'year',
     action: 'action',
     changedBy: 'changedBy',
-    employeeId: 'employeeId',
     oldAllocation: 'oldAllocation',
     newAllocation: 'newAllocation',
     reason: 'reason',
@@ -9712,20 +9708,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'AllocationAction'
    */
   export type EnumAllocationActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AllocationAction'>
@@ -9736,6 +9718,20 @@ export namespace Prisma {
    * Reference to a field of type 'AllocationAction[]'
    */
   export type ListEnumAllocationActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AllocationAction[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -9769,7 +9765,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
-    managedEmployees?: EmployeeListRelationFilter
+    managedDepartments?: DepartmentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9782,7 +9778,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     employee?: EmployeeOrderByWithRelationInput
-    managedEmployees?: EmployeeOrderByRelationAggregateInput
+    managedDepartments?: DepartmentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9798,7 +9794,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
-    managedEmployees?: EmployeeListRelationFilter
+    managedDepartments?: DepartmentListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9899,17 +9895,15 @@ export namespace Prisma {
     userId?: StringFilter<"Employee"> | string
     departmentId?: StringFilter<"Employee"> | string
     projectId?: StringNullableFilter<"Employee"> | string | null
-    managerId?: StringNullableFilter<"Employee"> | string | null
     workType?: EnumWorkTypeFilter<"Employee"> | $Enums.WorkType
     officeDays?: IntFilter<"Employee"> | number
-    preferences?: JsonNullableFilter<"Employee">
+    preferences?: StringNullableListFilter<"Employee">
     isActive?: BoolFilter<"Employee"> | boolean
     createdAt?: DateTimeFilter<"Employee"> | Date | string
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
-    manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     allocations?: AllocationListRelationFilter
   }
 
@@ -9917,17 +9911,15 @@ export namespace Prisma {
     userId?: SortOrder
     departmentId?: SortOrder
     projectId?: SortOrderInput | SortOrder
-    managerId?: SortOrderInput | SortOrder
     workType?: SortOrder
     officeDays?: SortOrder
-    preferences?: SortOrderInput | SortOrder
+    preferences?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     department?: DepartmentOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
-    manager?: UserOrderByWithRelationInput
     allocations?: AllocationOrderByRelationAggregateInput
   }
 
@@ -9939,17 +9931,15 @@ export namespace Prisma {
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     departmentId?: StringFilter<"Employee"> | string
     projectId?: StringNullableFilter<"Employee"> | string | null
-    managerId?: StringNullableFilter<"Employee"> | string | null
     workType?: EnumWorkTypeFilter<"Employee"> | $Enums.WorkType
     officeDays?: IntFilter<"Employee"> | number
-    preferences?: JsonNullableFilter<"Employee">
+    preferences?: StringNullableListFilter<"Employee">
     isActive?: BoolFilter<"Employee"> | boolean
     createdAt?: DateTimeFilter<"Employee"> | Date | string
     updatedAt?: DateTimeFilter<"Employee"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
     project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
-    manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     allocations?: AllocationListRelationFilter
   }, "employeeId" | "userId">
 
@@ -9957,10 +9947,9 @@ export namespace Prisma {
     userId?: SortOrder
     departmentId?: SortOrder
     projectId?: SortOrderInput | SortOrder
-    managerId?: SortOrderInput | SortOrder
     workType?: SortOrder
     officeDays?: SortOrder
-    preferences?: SortOrderInput | SortOrder
+    preferences?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9978,10 +9967,9 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Employee"> | string
     departmentId?: StringWithAggregatesFilter<"Employee"> | string
     projectId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
-    managerId?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     workType?: EnumWorkTypeWithAggregatesFilter<"Employee"> | $Enums.WorkType
     officeDays?: IntWithAggregatesFilter<"Employee"> | number
-    preferences?: JsonNullableWithAggregatesFilter<"Employee">
+    preferences?: StringNullableListFilter<"Employee">
     isActive?: BoolWithAggregatesFilter<"Employee"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
@@ -9994,20 +9982,24 @@ export namespace Prisma {
     id?: StringFilter<"Department"> | string
     name?: StringFilter<"Department"> | string
     color?: StringFilter<"Department"> | string
+    managerId?: StringNullableFilter<"Department"> | string | null
     description?: StringNullableFilter<"Department"> | string | null
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
     employees?: EmployeeListRelationFilter
+    manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type DepartmentOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     color?: SortOrder
+    managerId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     employees?: EmployeeOrderByRelationAggregateInput
+    manager?: UserOrderByWithRelationInput
   }
 
   export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -10017,16 +10009,19 @@ export namespace Prisma {
     OR?: DepartmentWhereInput[]
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     color?: StringFilter<"Department"> | string
+    managerId?: StringNullableFilter<"Department"> | string | null
     description?: StringNullableFilter<"Department"> | string | null
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
     employees?: EmployeeListRelationFilter
+    manager?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "name">
 
   export type DepartmentOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     color?: SortOrder
+    managerId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10042,6 +10037,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Department"> | string
     name?: StringWithAggregatesFilter<"Department"> | string
     color?: StringWithAggregatesFilter<"Department"> | string
+    managerId?: StringNullableWithAggregatesFilter<"Department"> | string | null
     description?: StringNullableWithAggregatesFilter<"Department"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
@@ -10154,7 +10150,6 @@ export namespace Prisma {
     year?: IntFilter<"AllocationHistory"> | number
     action?: EnumAllocationActionFilter<"AllocationHistory"> | $Enums.AllocationAction
     changedBy?: StringFilter<"AllocationHistory"> | string
-    employeeId?: StringNullableFilter<"AllocationHistory"> | string | null
     oldAllocation?: JsonNullableFilter<"AllocationHistory">
     newAllocation?: JsonNullableFilter<"AllocationHistory">
     reason?: StringNullableFilter<"AllocationHistory"> | string | null
@@ -10167,7 +10162,6 @@ export namespace Prisma {
     year?: SortOrder
     action?: SortOrder
     changedBy?: SortOrder
-    employeeId?: SortOrderInput | SortOrder
     oldAllocation?: SortOrderInput | SortOrder
     newAllocation?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
@@ -10183,7 +10177,6 @@ export namespace Prisma {
     year?: IntFilter<"AllocationHistory"> | number
     action?: EnumAllocationActionFilter<"AllocationHistory"> | $Enums.AllocationAction
     changedBy?: StringFilter<"AllocationHistory"> | string
-    employeeId?: StringNullableFilter<"AllocationHistory"> | string | null
     oldAllocation?: JsonNullableFilter<"AllocationHistory">
     newAllocation?: JsonNullableFilter<"AllocationHistory">
     reason?: StringNullableFilter<"AllocationHistory"> | string | null
@@ -10196,7 +10189,6 @@ export namespace Prisma {
     year?: SortOrder
     action?: SortOrder
     changedBy?: SortOrder
-    employeeId?: SortOrderInput | SortOrder
     oldAllocation?: SortOrderInput | SortOrder
     newAllocation?: SortOrderInput | SortOrder
     reason?: SortOrderInput | SortOrder
@@ -10217,7 +10209,6 @@ export namespace Prisma {
     year?: IntWithAggregatesFilter<"AllocationHistory"> | number
     action?: EnumAllocationActionWithAggregatesFilter<"AllocationHistory"> | $Enums.AllocationAction
     changedBy?: StringWithAggregatesFilter<"AllocationHistory"> | string
-    employeeId?: StringNullableWithAggregatesFilter<"AllocationHistory"> | string | null
     oldAllocation?: JsonNullableWithAggregatesFilter<"AllocationHistory">
     newAllocation?: JsonNullableWithAggregatesFilter<"AllocationHistory">
     reason?: StringNullableWithAggregatesFilter<"AllocationHistory"> | string | null
@@ -10279,7 +10270,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     employee?: EmployeeCreateNestedOneWithoutUserInput
-    managedEmployees?: EmployeeCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentCreateNestedManyWithoutManagerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10292,7 +10283,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
-    managedEmployees?: EmployeeUncheckedCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentUncheckedCreateNestedManyWithoutManagerInput
   }
 
   export type UserUpdateInput = {
@@ -10305,7 +10296,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     employee?: EmployeeUpdateOneWithoutUserNestedInput
-    managedEmployees?: EmployeeUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUpdateManyWithoutManagerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10318,7 +10309,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
-    managedEmployees?: EmployeeUncheckedUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10428,14 +10419,13 @@ export namespace Prisma {
   export type EmployeeCreateInput = {
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployeeInput
     department: DepartmentCreateNestedOneWithoutEmployeesInput
     project?: ProjectCreateNestedOneWithoutEmployeesInput
-    manager?: UserCreateNestedOneWithoutManagedEmployeesInput
     allocations?: AllocationCreateNestedManyWithoutEmployeeInput
   }
 
@@ -10443,10 +10433,9 @@ export namespace Prisma {
     userId: string
     departmentId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10456,14 +10445,13 @@ export namespace Prisma {
   export type EmployeeUpdateInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployeeNestedInput
     department?: DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
     project?: ProjectUpdateOneWithoutEmployeesNestedInput
-    manager?: UserUpdateOneWithoutManagedEmployeesNestedInput
     allocations?: AllocationUpdateManyWithoutEmployeeNestedInput
   }
 
@@ -10471,10 +10459,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     departmentId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10485,10 +10472,9 @@ export namespace Prisma {
     userId: string
     departmentId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10497,7 +10483,7 @@ export namespace Prisma {
   export type EmployeeUpdateManyMutationInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10507,10 +10493,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     departmentId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10524,12 +10509,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employees?: EmployeeCreateNestedManyWithoutDepartmentInput
+    manager?: UserCreateNestedOneWithoutManagedDepartmentsInput
   }
 
   export type DepartmentUncheckedCreateInput = {
     id?: string
     name: string
     color: string
+    managerId?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10544,12 +10531,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutDepartmentNestedInput
+    manager?: UserUpdateOneWithoutManagedDepartmentsNestedInput
   }
 
   export type DepartmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10560,6 +10549,7 @@ export namespace Prisma {
     id?: string
     name: string
     color: string
+    managerId?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10578,6 +10568,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10697,7 +10688,6 @@ export namespace Prisma {
     year: number
     action: $Enums.AllocationAction
     changedBy: string
-    employeeId?: string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: string | null
@@ -10710,7 +10700,6 @@ export namespace Prisma {
     year: number
     action: $Enums.AllocationAction
     changedBy: string
-    employeeId?: string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: string | null
@@ -10723,7 +10712,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     action?: EnumAllocationActionFieldUpdateOperationsInput | $Enums.AllocationAction
     changedBy?: StringFieldUpdateOperationsInput | string
-    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10736,7 +10724,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     action?: EnumAllocationActionFieldUpdateOperationsInput | $Enums.AllocationAction
     changedBy?: StringFieldUpdateOperationsInput | string
-    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10749,7 +10736,6 @@ export namespace Prisma {
     year: number
     action: $Enums.AllocationAction
     changedBy: string
-    employeeId?: string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: string | null
@@ -10762,7 +10748,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     action?: EnumAllocationActionFieldUpdateOperationsInput | $Enums.AllocationAction
     changedBy?: StringFieldUpdateOperationsInput | string
-    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10775,7 +10760,6 @@ export namespace Prisma {
     year?: IntFieldUpdateOperationsInput | number
     action?: EnumAllocationActionFieldUpdateOperationsInput | $Enums.AllocationAction
     changedBy?: StringFieldUpdateOperationsInput | string
-    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     oldAllocation?: NullableJsonNullValueInput | InputJsonValue
     newAllocation?: NullableJsonNullValueInput | InputJsonValue
     reason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10867,17 +10851,17 @@ export namespace Prisma {
     isNot?: EmployeeWhereInput | null
   }
 
-  export type EmployeeListRelationFilter = {
-    every?: EmployeeWhereInput
-    some?: EmployeeWhereInput
-    none?: EmployeeWhereInput
+  export type DepartmentListRelationFilter = {
+    every?: DepartmentWhereInput
+    some?: DepartmentWhereInput
+    none?: DepartmentWhereInput
   }
 
   export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type EmployeeOrderByRelationAggregateInput = {
+  export type DepartmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10973,9 +10957,19 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type EmployeeListRelationFilter = {
+    every?: EmployeeWhereInput
+    some?: EmployeeWhereInput
+    none?: EmployeeWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type EmployeeOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProjectCountOrderByAggregateInput = {
@@ -11051,28 +11045,13 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type UserScalarRelationFilter = {
@@ -11088,11 +11067,6 @@ export namespace Prisma {
   export type ProjectNullableScalarRelationFilter = {
     is?: ProjectWhereInput | null
     isNot?: ProjectWhereInput | null
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
   }
 
   export type AllocationListRelationFilter = {
@@ -11114,7 +11088,6 @@ export namespace Prisma {
     userId?: SortOrder
     departmentId?: SortOrder
     projectId?: SortOrder
-    managerId?: SortOrder
     workType?: SortOrder
     officeDays?: SortOrder
     preferences?: SortOrder
@@ -11131,7 +11104,6 @@ export namespace Prisma {
     userId?: SortOrder
     departmentId?: SortOrder
     projectId?: SortOrder
-    managerId?: SortOrder
     workType?: SortOrder
     officeDays?: SortOrder
     isActive?: SortOrder
@@ -11143,7 +11115,6 @@ export namespace Prisma {
     userId?: SortOrder
     departmentId?: SortOrder
     projectId?: SortOrder
-    managerId?: SortOrder
     workType?: SortOrder
     officeDays?: SortOrder
     isActive?: SortOrder
@@ -11180,37 +11151,17 @@ export namespace Prisma {
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type DepartmentCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     color?: SortOrder
+    managerId?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11220,6 +11171,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color?: SortOrder
+    managerId?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11229,6 +11181,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color?: SortOrder
+    managerId?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11313,6 +11266,29 @@ export namespace Prisma {
     notIn?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
     not?: NestedEnumAllocationActionFilter<$PrismaModel> | $Enums.AllocationAction
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type AllocationHistoryCountOrderByAggregateInput = {
     id?: SortOrder
@@ -11320,7 +11296,6 @@ export namespace Prisma {
     year?: SortOrder
     action?: SortOrder
     changedBy?: SortOrder
-    employeeId?: SortOrder
     oldAllocation?: SortOrder
     newAllocation?: SortOrder
     reason?: SortOrder
@@ -11338,7 +11313,6 @@ export namespace Prisma {
     year?: SortOrder
     action?: SortOrder
     changedBy?: SortOrder
-    employeeId?: SortOrder
     reason?: SortOrder
     createdAt?: SortOrder
   }
@@ -11349,7 +11323,6 @@ export namespace Prisma {
     year?: SortOrder
     action?: SortOrder
     changedBy?: SortOrder
-    employeeId?: SortOrder
     reason?: SortOrder
     createdAt?: SortOrder
   }
@@ -11367,6 +11340,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAllocationActionFilter<$PrismaModel>
     _max?: NestedEnumAllocationActionFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -11400,11 +11399,11 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput
   }
 
-  export type EmployeeCreateNestedManyWithoutManagerInput = {
-    create?: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput> | EmployeeCreateWithoutManagerInput[] | EmployeeUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutManagerInput | EmployeeCreateOrConnectWithoutManagerInput[]
-    createMany?: EmployeeCreateManyManagerInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type DepartmentCreateNestedManyWithoutManagerInput = {
+    create?: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput> | DepartmentCreateWithoutManagerInput[] | DepartmentUncheckedCreateWithoutManagerInput[]
+    connectOrCreate?: DepartmentCreateOrConnectWithoutManagerInput | DepartmentCreateOrConnectWithoutManagerInput[]
+    createMany?: DepartmentCreateManyManagerInputEnvelope
+    connect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -11420,11 +11419,11 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput
   }
 
-  export type EmployeeUncheckedCreateNestedManyWithoutManagerInput = {
-    create?: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput> | EmployeeCreateWithoutManagerInput[] | EmployeeUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutManagerInput | EmployeeCreateOrConnectWithoutManagerInput[]
-    createMany?: EmployeeCreateManyManagerInputEnvelope
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
+  export type DepartmentUncheckedCreateNestedManyWithoutManagerInput = {
+    create?: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput> | DepartmentCreateWithoutManagerInput[] | DepartmentUncheckedCreateWithoutManagerInput[]
+    connectOrCreate?: DepartmentCreateOrConnectWithoutManagerInput | DepartmentCreateOrConnectWithoutManagerInput[]
+    createMany?: DepartmentCreateManyManagerInputEnvelope
+    connect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11463,18 +11462,18 @@ export namespace Prisma {
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutUserInput, EmployeeUpdateWithoutUserInput>, EmployeeUncheckedUpdateWithoutUserInput>
   }
 
-  export type EmployeeUpdateManyWithoutManagerNestedInput = {
-    create?: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput> | EmployeeCreateWithoutManagerInput[] | EmployeeUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutManagerInput | EmployeeCreateOrConnectWithoutManagerInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutManagerInput | EmployeeUpsertWithWhereUniqueWithoutManagerInput[]
-    createMany?: EmployeeCreateManyManagerInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutManagerInput | EmployeeUpdateWithWhereUniqueWithoutManagerInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutManagerInput | EmployeeUpdateManyWithWhereWithoutManagerInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type DepartmentUpdateManyWithoutManagerNestedInput = {
+    create?: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput> | DepartmentCreateWithoutManagerInput[] | DepartmentUncheckedCreateWithoutManagerInput[]
+    connectOrCreate?: DepartmentCreateOrConnectWithoutManagerInput | DepartmentCreateOrConnectWithoutManagerInput[]
+    upsert?: DepartmentUpsertWithWhereUniqueWithoutManagerInput | DepartmentUpsertWithWhereUniqueWithoutManagerInput[]
+    createMany?: DepartmentCreateManyManagerInputEnvelope
+    set?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    disconnect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    delete?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    connect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    update?: DepartmentUpdateWithWhereUniqueWithoutManagerInput | DepartmentUpdateWithWhereUniqueWithoutManagerInput[]
+    updateMany?: DepartmentUpdateManyWithWhereWithoutManagerInput | DepartmentUpdateManyWithWhereWithoutManagerInput[]
+    deleteMany?: DepartmentScalarWhereInput | DepartmentScalarWhereInput[]
   }
 
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -11501,18 +11500,18 @@ export namespace Prisma {
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutUserInput, EmployeeUpdateWithoutUserInput>, EmployeeUncheckedUpdateWithoutUserInput>
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutManagerNestedInput = {
-    create?: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput> | EmployeeCreateWithoutManagerInput[] | EmployeeUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutManagerInput | EmployeeCreateOrConnectWithoutManagerInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutManagerInput | EmployeeUpsertWithWhereUniqueWithoutManagerInput[]
-    createMany?: EmployeeCreateManyManagerInputEnvelope
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutManagerInput | EmployeeUpdateWithWhereUniqueWithoutManagerInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutManagerInput | EmployeeUpdateManyWithWhereWithoutManagerInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  export type DepartmentUncheckedUpdateManyWithoutManagerNestedInput = {
+    create?: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput> | DepartmentCreateWithoutManagerInput[] | DepartmentUncheckedCreateWithoutManagerInput[]
+    connectOrCreate?: DepartmentCreateOrConnectWithoutManagerInput | DepartmentCreateOrConnectWithoutManagerInput[]
+    upsert?: DepartmentUpsertWithWhereUniqueWithoutManagerInput | DepartmentUpsertWithWhereUniqueWithoutManagerInput[]
+    createMany?: DepartmentCreateManyManagerInputEnvelope
+    set?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    disconnect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    delete?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    connect?: DepartmentWhereUniqueInput | DepartmentWhereUniqueInput[]
+    update?: DepartmentUpdateWithWhereUniqueWithoutManagerInput | DepartmentUpdateWithWhereUniqueWithoutManagerInput[]
+    updateMany?: DepartmentUpdateManyWithWhereWithoutManagerInput | DepartmentUpdateManyWithWhereWithoutManagerInput[]
+    deleteMany?: DepartmentScalarWhereInput | DepartmentScalarWhereInput[]
   }
 
   export type EmployeeCreateNestedManyWithoutProjectInput = {
@@ -11565,6 +11564,10 @@ export namespace Prisma {
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
   }
 
+  export type EmployeeCreatepreferencesInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutEmployeeInput = {
     create?: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
     connectOrCreate?: UserCreateOrConnectWithoutEmployeeInput
@@ -11581,12 +11584,6 @@ export namespace Prisma {
     create?: XOR<ProjectCreateWithoutEmployeesInput, ProjectUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutEmployeesInput
     connect?: ProjectWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutManagedEmployeesInput = {
-    create?: XOR<UserCreateWithoutManagedEmployeesInput, UserUncheckedCreateWithoutManagedEmployeesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutManagedEmployeesInput
-    connect?: UserWhereUniqueInput
   }
 
   export type AllocationCreateNestedManyWithoutEmployeeInput = {
@@ -11615,6 +11612,11 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EmployeeUpdatepreferencesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type UserUpdateOneRequiredWithoutEmployeeNestedInput = {
     create?: XOR<UserCreateWithoutEmployeeInput, UserUncheckedCreateWithoutEmployeeInput>
     connectOrCreate?: UserCreateOrConnectWithoutEmployeeInput
@@ -11639,16 +11641,6 @@ export namespace Prisma {
     delete?: ProjectWhereInput | boolean
     connect?: ProjectWhereUniqueInput
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutEmployeesInput, ProjectUpdateWithoutEmployeesInput>, ProjectUncheckedUpdateWithoutEmployeesInput>
-  }
-
-  export type UserUpdateOneWithoutManagedEmployeesNestedInput = {
-    create?: XOR<UserCreateWithoutManagedEmployeesInput, UserUncheckedCreateWithoutManagedEmployeesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutManagedEmployeesInput
-    upsert?: UserUpsertWithoutManagedEmployeesInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutManagedEmployeesInput, UserUpdateWithoutManagedEmployeesInput>, UserUncheckedUpdateWithoutManagedEmployeesInput>
   }
 
   export type AllocationUpdateManyWithoutEmployeeNestedInput = {
@@ -11686,6 +11678,12 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutManagedDepartmentsInput = {
+    create?: XOR<UserCreateWithoutManagedDepartmentsInput, UserUncheckedCreateWithoutManagedDepartmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutManagedDepartmentsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EmployeeUncheckedCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<EmployeeCreateWithoutDepartmentInput, EmployeeUncheckedCreateWithoutDepartmentInput> | EmployeeCreateWithoutDepartmentInput[] | EmployeeUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutDepartmentInput | EmployeeCreateOrConnectWithoutDepartmentInput[]
@@ -11705,6 +11703,16 @@ export namespace Prisma {
     update?: EmployeeUpdateWithWhereUniqueWithoutDepartmentInput | EmployeeUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: EmployeeUpdateManyWithWhereWithoutDepartmentInput | EmployeeUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutManagedDepartmentsNestedInput = {
+    create?: XOR<UserCreateWithoutManagedDepartmentsInput, UserUncheckedCreateWithoutManagedDepartmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutManagedDepartmentsInput
+    upsert?: UserUpsertWithoutManagedDepartmentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutManagedDepartmentsInput, UserUpdateWithoutManagedDepartmentsInput>, UserUncheckedUpdateWithoutManagedDepartmentsInput>
   }
 
   export type EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput = {
@@ -11935,6 +11943,23 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+
+  export type NestedEnumAllocationActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.AllocationAction | EnumAllocationActionFieldRefInput<$PrismaModel>
+    in?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumAllocationActionFilter<$PrismaModel> | $Enums.AllocationAction
+  }
+
+  export type NestedEnumAllocationActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AllocationAction | EnumAllocationActionFieldRefInput<$PrismaModel>
+    in?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumAllocationActionWithAggregatesFilter<$PrismaModel> | $Enums.AllocationAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAllocationActionFilter<$PrismaModel>
+    _max?: NestedEnumAllocationActionFilter<$PrismaModel>
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -11957,23 +11982,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedEnumAllocationActionFilter<$PrismaModel = never> = {
-    equals?: $Enums.AllocationAction | EnumAllocationActionFieldRefInput<$PrismaModel>
-    in?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumAllocationActionFilter<$PrismaModel> | $Enums.AllocationAction
-  }
-
-  export type NestedEnumAllocationActionWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.AllocationAction | EnumAllocationActionFieldRefInput<$PrismaModel>
-    in?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AllocationAction[] | ListEnumAllocationActionFieldRefInput<$PrismaModel>
-    not?: NestedEnumAllocationActionWithAggregatesFilter<$PrismaModel> | $Enums.AllocationAction
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumAllocationActionFilter<$PrismaModel>
-    _max?: NestedEnumAllocationActionFilter<$PrismaModel>
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -11999,23 +12007,21 @@ export namespace Prisma {
   export type EmployeeCreateWithoutUserInput = {
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     department: DepartmentCreateNestedOneWithoutEmployeesInput
     project?: ProjectCreateNestedOneWithoutEmployeesInput
-    manager?: UserCreateNestedOneWithoutManagedEmployeesInput
     allocations?: AllocationCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutUserInput = {
     departmentId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12027,39 +12033,33 @@ export namespace Prisma {
     create: XOR<EmployeeCreateWithoutUserInput, EmployeeUncheckedCreateWithoutUserInput>
   }
 
-  export type EmployeeCreateWithoutManagerInput = {
-    workType: $Enums.WorkType
-    officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: boolean
+  export type DepartmentCreateWithoutManagerInput = {
+    id?: string
+    name: string
+    color: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutEmployeeInput
-    department: DepartmentCreateNestedOneWithoutEmployeesInput
-    project?: ProjectCreateNestedOneWithoutEmployeesInput
-    allocations?: AllocationCreateNestedManyWithoutEmployeeInput
+    employees?: EmployeeCreateNestedManyWithoutDepartmentInput
   }
 
-  export type EmployeeUncheckedCreateWithoutManagerInput = {
-    userId: string
-    departmentId: string
-    projectId?: string | null
-    workType: $Enums.WorkType
-    officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: boolean
+  export type DepartmentUncheckedCreateWithoutManagerInput = {
+    id?: string
+    name: string
+    color: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    allocations?: AllocationUncheckedCreateNestedManyWithoutEmployeeInput
+    employees?: EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
-  export type EmployeeCreateOrConnectWithoutManagerInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput>
+  export type DepartmentCreateOrConnectWithoutManagerInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput>
   }
 
-  export type EmployeeCreateManyManagerInputEnvelope = {
-    data: EmployeeCreateManyManagerInput | EmployeeCreateManyManagerInput[]
+  export type DepartmentCreateManyManagerInputEnvelope = {
+    data: DepartmentCreateManyManagerInput | DepartmentCreateManyManagerInput[]
     skipDuplicates?: boolean
   }
 
@@ -12102,81 +12102,74 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutUserInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     department?: DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
     project?: ProjectUpdateOneWithoutEmployeesNestedInput
-    manager?: UserUpdateOneWithoutManagedEmployeesNestedInput
     allocations?: AllocationUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutUserInput = {
     departmentId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     allocations?: AllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutManagerInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutManagerInput, EmployeeUncheckedUpdateWithoutManagerInput>
-    create: XOR<EmployeeCreateWithoutManagerInput, EmployeeUncheckedCreateWithoutManagerInput>
+  export type DepartmentUpsertWithWhereUniqueWithoutManagerInput = {
+    where: DepartmentWhereUniqueInput
+    update: XOR<DepartmentUpdateWithoutManagerInput, DepartmentUncheckedUpdateWithoutManagerInput>
+    create: XOR<DepartmentCreateWithoutManagerInput, DepartmentUncheckedCreateWithoutManagerInput>
   }
 
-  export type EmployeeUpdateWithWhereUniqueWithoutManagerInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutManagerInput, EmployeeUncheckedUpdateWithoutManagerInput>
+  export type DepartmentUpdateWithWhereUniqueWithoutManagerInput = {
+    where: DepartmentWhereUniqueInput
+    data: XOR<DepartmentUpdateWithoutManagerInput, DepartmentUncheckedUpdateWithoutManagerInput>
   }
 
-  export type EmployeeUpdateManyWithWhereWithoutManagerInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutManagerInput>
+  export type DepartmentUpdateManyWithWhereWithoutManagerInput = {
+    where: DepartmentScalarWhereInput
+    data: XOR<DepartmentUpdateManyMutationInput, DepartmentUncheckedUpdateManyWithoutManagerInput>
   }
 
-  export type EmployeeScalarWhereInput = {
-    AND?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
-    OR?: EmployeeScalarWhereInput[]
-    NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
-    userId?: StringFilter<"Employee"> | string
-    departmentId?: StringFilter<"Employee"> | string
-    projectId?: StringNullableFilter<"Employee"> | string | null
-    managerId?: StringNullableFilter<"Employee"> | string | null
-    workType?: EnumWorkTypeFilter<"Employee"> | $Enums.WorkType
-    officeDays?: IntFilter<"Employee"> | number
-    preferences?: JsonNullableFilter<"Employee">
-    isActive?: BoolFilter<"Employee"> | boolean
-    createdAt?: DateTimeFilter<"Employee"> | Date | string
-    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+  export type DepartmentScalarWhereInput = {
+    AND?: DepartmentScalarWhereInput | DepartmentScalarWhereInput[]
+    OR?: DepartmentScalarWhereInput[]
+    NOT?: DepartmentScalarWhereInput | DepartmentScalarWhereInput[]
+    id?: StringFilter<"Department"> | string
+    name?: StringFilter<"Department"> | string
+    color?: StringFilter<"Department"> | string
+    managerId?: StringNullableFilter<"Department"> | string | null
+    description?: StringNullableFilter<"Department"> | string | null
+    createdAt?: DateTimeFilter<"Department"> | Date | string
+    updatedAt?: DateTimeFilter<"Department"> | Date | string
   }
 
   export type EmployeeCreateWithoutProjectInput = {
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployeeInput
     department: DepartmentCreateNestedOneWithoutEmployeesInput
-    manager?: UserCreateNestedOneWithoutManagedEmployeesInput
     allocations?: AllocationCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutProjectInput = {
     userId: string
     departmentId: string
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12209,6 +12202,21 @@ export namespace Prisma {
     data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutProjectInput>
   }
 
+  export type EmployeeScalarWhereInput = {
+    AND?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+    OR?: EmployeeScalarWhereInput[]
+    NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
+    userId?: StringFilter<"Employee"> | string
+    departmentId?: StringFilter<"Employee"> | string
+    projectId?: StringNullableFilter<"Employee"> | string | null
+    workType?: EnumWorkTypeFilter<"Employee"> | $Enums.WorkType
+    officeDays?: IntFilter<"Employee"> | number
+    preferences?: StringNullableListFilter<"Employee">
+    isActive?: BoolFilter<"Employee"> | boolean
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+  }
+
   export type UserCreateWithoutEmployeeInput = {
     id?: string
     email: string
@@ -12218,7 +12226,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
-    managedEmployees?: EmployeeCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentCreateNestedManyWithoutManagerInput
   }
 
   export type UserUncheckedCreateWithoutEmployeeInput = {
@@ -12230,7 +12238,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    managedEmployees?: EmployeeUncheckedCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentUncheckedCreateNestedManyWithoutManagerInput
   }
 
   export type UserCreateOrConnectWithoutEmployeeInput = {
@@ -12245,12 +12253,14 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manager?: UserCreateNestedOneWithoutManagedDepartmentsInput
   }
 
   export type DepartmentUncheckedCreateWithoutEmployeesInput = {
     id?: string
     name: string
     color: string
+    managerId?: string | null
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12284,35 +12294,6 @@ export namespace Prisma {
   export type ProjectCreateOrConnectWithoutEmployeesInput = {
     where: ProjectWhereUniqueInput
     create: XOR<ProjectCreateWithoutEmployeesInput, ProjectUncheckedCreateWithoutEmployeesInput>
-  }
-
-  export type UserCreateWithoutManagedEmployeesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    employee?: EmployeeCreateNestedOneWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutManagedEmployeesInput = {
-    id?: string
-    email: string
-    passwordHash: string
-    name: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutManagedEmployeesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutManagedEmployeesInput, UserUncheckedCreateWithoutManagedEmployeesInput>
   }
 
   export type AllocationCreateWithoutEmployeeInput = {
@@ -12373,7 +12354,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    managedEmployees?: EmployeeUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUpdateManyWithoutManagerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmployeeInput = {
@@ -12385,7 +12366,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    managedEmployees?: EmployeeUncheckedUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   }
 
   export type DepartmentUpsertWithoutEmployeesInput = {
@@ -12406,12 +12387,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manager?: UserUpdateOneWithoutManagedDepartmentsNestedInput
   }
 
   export type DepartmentUncheckedUpdateWithoutEmployeesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12446,41 +12429,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpsertWithoutManagedEmployeesInput = {
-    update: XOR<UserUpdateWithoutManagedEmployeesInput, UserUncheckedUpdateWithoutManagedEmployeesInput>
-    create: XOR<UserCreateWithoutManagedEmployeesInput, UserUncheckedCreateWithoutManagedEmployeesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutManagedEmployeesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutManagedEmployeesInput, UserUncheckedUpdateWithoutManagedEmployeesInput>
-  }
-
-  export type UserUpdateWithoutManagedEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    employee?: EmployeeUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutManagedEmployeesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AllocationUpsertWithWhereUniqueWithoutEmployeeInput = {
@@ -12521,23 +12469,21 @@ export namespace Prisma {
   export type EmployeeCreateWithoutDepartmentInput = {
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployeeInput
     project?: ProjectCreateNestedOneWithoutEmployeesInput
-    manager?: UserCreateNestedOneWithoutManagedEmployeesInput
     allocations?: AllocationCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutDepartmentInput = {
     userId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12552,6 +12498,35 @@ export namespace Prisma {
   export type EmployeeCreateManyDepartmentInputEnvelope = {
     data: EmployeeCreateManyDepartmentInput | EmployeeCreateManyDepartmentInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutManagedDepartmentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    employee?: EmployeeCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutManagedDepartmentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutManagedDepartmentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutManagedDepartmentsInput, UserUncheckedCreateWithoutManagedDepartmentsInput>
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -12570,27 +12545,60 @@ export namespace Prisma {
     data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutDepartmentInput>
   }
 
+  export type UserUpsertWithoutManagedDepartmentsInput = {
+    update: XOR<UserUpdateWithoutManagedDepartmentsInput, UserUncheckedUpdateWithoutManagedDepartmentsInput>
+    create: XOR<UserCreateWithoutManagedDepartmentsInput, UserUncheckedCreateWithoutManagedDepartmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutManagedDepartmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutManagedDepartmentsInput, UserUncheckedUpdateWithoutManagedDepartmentsInput>
+  }
+
+  export type UserUpdateWithoutManagedDepartmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    employee?: EmployeeUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutManagedDepartmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  }
+
   export type EmployeeCreateWithoutAllocationsInput = {
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutEmployeeInput
     department: DepartmentCreateNestedOneWithoutEmployeesInput
     project?: ProjectCreateNestedOneWithoutEmployeesInput
-    manager?: UserCreateNestedOneWithoutManagedEmployeesInput
   }
 
   export type EmployeeUncheckedCreateWithoutAllocationsInput = {
     userId: string
     departmentId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12615,24 +12623,22 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutAllocationsInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployeeNestedInput
     department?: DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
     project?: ProjectUpdateOneWithoutEmployeesNestedInput
-    manager?: UserUpdateOneWithoutManagedEmployeesNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutAllocationsInput = {
     userId?: StringFieldUpdateOperationsInput | string
     departmentId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12647,7 +12653,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employee?: EmployeeCreateNestedOneWithoutUserInput
-    managedEmployees?: EmployeeCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentCreateNestedManyWithoutManagerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -12659,7 +12665,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     employee?: EmployeeUncheckedCreateNestedOneWithoutUserInput
-    managedEmployees?: EmployeeUncheckedCreateNestedManyWithoutManagerInput
+    managedDepartments?: DepartmentUncheckedCreateNestedManyWithoutManagerInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -12687,7 +12693,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneWithoutUserNestedInput
-    managedEmployees?: EmployeeUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUpdateManyWithoutManagerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -12699,7 +12705,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUncheckedUpdateOneWithoutUserNestedInput
-    managedEmployees?: EmployeeUncheckedUpdateManyWithoutManagerNestedInput
+    managedDepartments?: DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -12707,14 +12713,11 @@ export namespace Prisma {
     expiresAt: Date | string
   }
 
-  export type EmployeeCreateManyManagerInput = {
-    userId: string
-    departmentId: string
-    projectId?: string | null
-    workType: $Enums.WorkType
-    officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: boolean
+  export type DepartmentCreateManyManagerInput = {
+    id?: string
+    name: string
+    color: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12734,40 +12737,31 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EmployeeUpdateWithoutManagerInput = {
-    workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
-    officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+  export type DepartmentUpdateWithoutManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutEmployeeNestedInput
-    department?: DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
-    project?: ProjectUpdateOneWithoutEmployeesNestedInput
-    allocations?: AllocationUpdateManyWithoutEmployeeNestedInput
+    employees?: EmployeeUpdateManyWithoutDepartmentNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutManagerInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    departmentId?: StringFieldUpdateOperationsInput | string
-    projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
-    officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+  export type DepartmentUncheckedUpdateWithoutManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    allocations?: AllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+    employees?: EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutManagerInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    departmentId?: StringFieldUpdateOperationsInput | string
-    projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
-    officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+  export type DepartmentUncheckedUpdateManyWithoutManagerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12775,10 +12769,9 @@ export namespace Prisma {
   export type EmployeeCreateManyProjectInput = {
     userId: string
     departmentId: string
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12787,23 +12780,21 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutProjectInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployeeNestedInput
     department?: DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
-    manager?: UserUpdateOneWithoutManagedEmployeesNestedInput
     allocations?: AllocationUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutProjectInput = {
     userId?: StringFieldUpdateOperationsInput | string
     departmentId?: StringFieldUpdateOperationsInput | string
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12813,10 +12804,9 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateManyWithoutProjectInput = {
     userId?: StringFieldUpdateOperationsInput | string
     departmentId?: StringFieldUpdateOperationsInput | string
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12881,10 +12871,9 @@ export namespace Prisma {
   export type EmployeeCreateManyDepartmentInput = {
     userId: string
     projectId?: string | null
-    managerId?: string | null
     workType: $Enums.WorkType
     officeDays?: number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeCreatepreferencesInput | string[]
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12893,23 +12882,21 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutDepartmentInput = {
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutEmployeeNestedInput
     project?: ProjectUpdateOneWithoutEmployeesNestedInput
-    manager?: UserUpdateOneWithoutManagedEmployeesNestedInput
     allocations?: AllocationUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
     userId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12919,10 +12906,9 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
     userId?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
-    managerId?: NullableStringFieldUpdateOperationsInput | string | null
     workType?: EnumWorkTypeFieldUpdateOperationsInput | $Enums.WorkType
     officeDays?: IntFieldUpdateOperationsInput | number
-    preferences?: NullableJsonNullValueInput | InputJsonValue
+    preferences?: EmployeeUpdatepreferencesInput | string[]
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

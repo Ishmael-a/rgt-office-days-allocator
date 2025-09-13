@@ -38,7 +38,7 @@ const AccountDropdown = ({ user }: AccountDropdownProps) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-            <Button onClick={handleSubmit} className="flex gap-2">
+            <Button onClick={handleSubmit} className="flex gap-2 w-full">
               <LucideLogOut className="mr-2 h-4 w-4" />
               Sign out
             </Button>

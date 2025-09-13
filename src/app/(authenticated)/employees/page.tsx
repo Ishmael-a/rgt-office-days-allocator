@@ -1,28 +1,22 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 import { DataTable, TableColumn } from '@/components/common/data-table';
+import CreateEmployeeModal, { InitialData } from '@/components/employee/create-employee-modal';
+import { EmployeeWithUserAndDepartment } from '@/features/employee/types';
+import { WorkType } from '@/types';
+import { useEmployeesQuery } from '@/hooks/use-employee';
 
 
-
-// Employee interface
-interface Employee {
-  id: string;
-  name: string;
-  department: string;
-  role: string;
-  manager: string;
-  workType: 'In Office' | 'Hybrid' | 'Remote';
-}
 
 // Work type badge component
-const WorkTypeBadge = ({ workType }: { workType: Employee['workType'] }) => {
+const WorkTypeBadge = ({ workType }: { workType: EmployeeWithUserAndDepartment['workType'] }) => {
   const variants = {
-    'In Office': 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
-    'Hybrid': 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-300',
-    'Remote': 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
+    [WorkType.ONSITE]: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
+    [WorkType.HYBRID]: 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-300',
+    [WorkType.REMOTE]: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
   };
 
   return (
@@ -33,50 +27,26 @@ const WorkTypeBadge = ({ workType }: { workType: Employee['workType'] }) => {
 };
 
 const Employees = () => {
-  const [employees] = useState<Employee[]>([
+  const [open, setIsOpen] = useState(false)
+  const [initialData, setInitialData] = useState<InitialData|undefined>(undefined)
+  const { data: employeesData } = useEmployeesQuery(
     {
-      id: '1',
-      name: 'Ethan Carter',
-      department: 'Engineering',
-      role: 'Software Engineer',
-      manager: 'Olivia Bennett',
-      workType: 'In Office'
-    },
-    {
-      id: '2',
-      name: 'Sophia Clark',
-      department: 'Product',
-      role: 'Product Manager',
-      manager: 'Olivia Bennett',
-      workType: 'Hybrid'
-    },
-    {
-      id: '3',
-      name: 'Liam Foster',
-      department: 'Design',
-      role: 'UX Designer',
-      manager: 'Ava Harper',
-      workType: 'Remote'
-    },
-    {
-      id: '4',
-      name: 'Isabella Green',
-      department: 'Marketing',
-      role: 'Marketing Specialist',
-      manager: 'Ava Harper',
-      workType: 'In Office'
-    },
-    {
-      id: '5',
-      name: 'Noah Hill',
-      department: 'Sales',
-      role: 'Sales Representative',
-      manager: 'Olivia Bennett',
-      workType: 'Hybrid'
+      query: {
+        withDepartment: true,
+        withUser: true
+      }
     }
-  ]);
+  )
+  const employees = useMemo(() => employeesData?.data.data.employees || [], [employeesData])
 
-  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>(employees);
+  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeWithUserAndDepartment[]>(employees);
+
+  const handleClose = () =>{
+    if(initialData){
+      setInitialData(undefined)
+    } 
+    setIsOpen(false)
+  }
 
   const handleSearch = (query: string) => {
     if (!query.trim()) {
@@ -84,11 +54,11 @@ const Employees = () => {
       return;
     }
 
-    const filtered = employees.filter(employee =>
-      employee.name.toLowerCase().includes(query.toLowerCase()) ||
-      employee.department.toLowerCase().includes(query.toLowerCase()) ||
-      employee.role.toLowerCase().includes(query.toLowerCase()) ||
-      employee.manager.toLowerCase().includes(query.toLowerCase()) ||
+    const filtered:EmployeeWithUserAndDepartment[] = employees.filter((employee:EmployeeWithUserAndDepartment) =>
+      employee.user.name.toLowerCase().includes(query.toLowerCase()) ||
+      employee.department.name.toLowerCase().includes(query.toLowerCase()) ||
+      employee.user.role.toLowerCase().includes(query.toLowerCase()) ||
+      employee.department.manager?.name.toLowerCase().includes(query.toLowerCase()) ||
       employee.workType.toLowerCase().includes(query.toLowerCase())
     );
     
@@ -96,33 +66,41 @@ const Employees = () => {
   };
 
   const handleAddEmployee = () => {
-    console.log('Add employee clicked');
+    setIsOpen(true)
+  };
+  const handleEditEmployee = (employee: EmployeeWithUserAndDepartment) => {
+    const initVal: InitialData = {
+      ...employee,
+      previousDepartmentId: employee.departmentId,
+      preferences: employee.preferences
+    }
+    setInitialData(initVal)
+    setIsOpen(true)
   };
 
-  // Define table columns with types
-  const columns: TableColumn<Employee>[] = [
+  const columns: TableColumn<EmployeeWithUserAndDepartment>[] = [
     {
       key: 'name',
       header: 'Name',
-      accessor: 'name',
+      accessor: (employee) => employee.user.name,
       className: 'font-medium text-foreground'
     },
     {
       key: 'department',
       header: 'Department',
-      accessor: 'department',
+      accessor: (employee) => employee.department.name,
       className: 'text-muted-foreground'
     },
     {
       key: 'role',
       header: 'Role',
-      accessor: 'role',
+      accessor: (employee) => employee.user.role,
       className: 'text-muted-foreground'
     },
     {
       key: 'manager',
       header: 'Manager',
-      accessor: 'manager',
+      accessor: (employee) => employee.department.manager?.name || "No Manager",
       className: 'text-muted-foreground'
     },
     {
@@ -130,8 +108,22 @@ const Employees = () => {
       header: 'Work Type',
       accessor: (employee) => <WorkTypeBadge workType={employee.workType} />,
       className: 'text-right'
+    },
+    {
+      key: 'action',
+      header: 'Action',
+      accessor: (employee) => <div className='flex justify-end'>
+        <Button onClick={() => handleEditEmployee(employee)} variant={"ghost"} size={"icon"}>
+          <Pencil className='w-4 h-4'/>
+        </Button>
+      </div>,
+      className: 'text-right'
     }
   ];
+
+  useEffect(() => {
+    setFilteredEmployees(employees);
+  }, [employees]);
 
   return (
     <div className="min-h-screen bg-background p-6 space-y-8">
@@ -146,19 +138,16 @@ const Employees = () => {
         </Button>
       </div>
 
-      {/* Employees Table */}
-      {/* <Card> */}
-        {/* <CardContent className="p-0"> */}
-        <DataTable
+      <DataTable
         data={filteredEmployees}
         columns={columns}
         searchable
         searchPlaceholder="Search employees"
         onSearch={handleSearch}
         className="p-6"
-        />
-        {/* </CardContent> */}
-      {/* </Card> */}
+      />
+
+      <CreateEmployeeModal initialData={initialData} isOpen={open} onClose={handleClose} />
     </div>
   );
 };

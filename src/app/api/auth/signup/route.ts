@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const { username, email, password } = await request.json()
 
     if (!email || !password || !username) {
-      return NextResponse.json({ error: "Email, Username and password are required" }, { status: 400 })
+      return NextResponse.json({ success:false, message: "Email, Username and password are required" }, { status: 400 })
     }
     
     const validatedData= await signupSchema.validate({ email, password, username }, { abortEarly: false })
@@ -35,10 +35,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Sign Up error:", error)
     if(error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002"){
-        return NextResponse.json(
-            "Either email or username already in use",{ status: 500 }
+        return NextResponse.json({
+           success:false, message: "Either email or username already in use"
+          },{ status: 500 }
         );
     }
-    return NextResponse.json({ error: "Sign Up Failed. Internal server error" }, { status: 500 })
+    return NextResponse.json({ success: false, message: "Sign Up Failed. Internal server error" }, { status: 500 })
   }  
 }
