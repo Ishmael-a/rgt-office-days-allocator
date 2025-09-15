@@ -1,12 +1,17 @@
 import { allocationsPath, calendarPath, dashboardPath, departmentsPath, employeesPath, projectsPath,  } from "./app/paths";
-import { NavItem } from "./types";
+import { NavItem, UserRole } from "./types";
 
 
 
 export const SESSION_COOKIE_NAME = "session";
 export const SESSION_REFRESH_INTERVAL_MS = 1000 * 60 * 60 * 24 * 15; // 15 days
 export const SESSION_MAX_DURATION_MS = SESSION_REFRESH_INTERVAL_MS * 2; // 30 days
-export const DEFAULTPASSWORD = "demo123"
+
+export enum ROLE_CREDENTIALS {
+  ADMIN = "admin@admin.com",
+  MANAGER = "lena@example.com",
+  EMPLOYEE = "razak@example.com",
+}
 
 
 export const colorOptions = [
@@ -22,7 +27,7 @@ export const colorOptions = [
     "#c026d3",
   ]
 
-    export const months = [
+export const months = [
     "January",
     "February",
     "March",
@@ -74,3 +79,9 @@ export const navItems: NavItem[] = [
         href: projectsPath(),
     },
 ]
+
+export const RolesWithAuthorizedPages: Record<UserRole, string[]> = {
+    [UserRole.ADMIN] : [ dashboardPath()],
+    [UserRole.MANAGER] : [departmentsPath(), employeesPath(), projectsPath(), allocationsPath()],
+    [UserRole.EMPLOYEE] : [calendarPath()],
+}

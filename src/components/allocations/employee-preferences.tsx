@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
 import { Settings, Save, Heart } from "lucide-react"
-// import { useToast } from "@/hooks/use-toast"
 import { mockData } from "@/lib/mock-data"
 import {toast} from 'sonner'
 

@@ -6,7 +6,7 @@ import { dashboardPath, signInPath, signUpPath } from '../paths';
 import { buttonVariants } from '@/components/ui/button';
 import { useAuth } from '@/hooks/auth/use-auth';
 import { AccountDropdown } from './account-dropdown';
-import { navItems as navbarItems } from '@/constants';
+import { navItems as navbarItems, RolesWithAuthorizedPages } from '@/constants';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -22,10 +22,18 @@ const Navbar = () => {
     <div className='flex items-center gap-8'>
       <nav className="flex space-x-12">
         {navbarItems.map((navItem, index) => (
-          <Link key={index} href={navItem.href} className={`${pathname === navItem.href 
+          RolesWithAuthorizedPages[user.role].includes(navItem.href) && (
+            <Link 
+              key={index} 
+              href={navItem.href} 
+              className={`${pathname === navItem.href 
                 ? 'text-primary font-semibold' 
                 : 'text-muted-foreground'
-          }`}>{navItem.title}</Link>
+              }`}
+            >
+              {navItem.title}
+            </Link>
+          )
         ))}
       </nav>
       <AccountDropdown user={user} />
@@ -68,7 +76,6 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex align-items gap-x-2">
-        {/* <ThemeSwitcher /> */}
         {navItems}
       </div>
     </nav>

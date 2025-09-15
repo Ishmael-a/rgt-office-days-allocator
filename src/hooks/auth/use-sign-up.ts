@@ -1,3 +1,4 @@
+import getPathPerRole from "@/app/_auth/get-path-per-role";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -11,13 +12,14 @@ const signUp = async ({email, password, username}:{email: string, password: stri
 
 export const useSignUp = () => {
   const router = useRouter()
+  
 
   const { mutate, ...rest } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
 
       toast(data.message)
-      router.push("/dashboard")
+      router.push(getPathPerRole(data.data.user.role))
       router.refresh()
     },
     onError: (err) => {

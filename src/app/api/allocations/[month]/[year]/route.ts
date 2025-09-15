@@ -1,11 +1,14 @@
+import { requireRole } from '@/app/_auth/require-role';
 import { allocationService as AllocationService } from '@/features/allocation/services/allocation-service';
-import { AllocationQueryParam } from '@/types';
+import { AllocationQueryParam, UserRole } from '@/types';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(
     req: NextRequest, 
     { params }: { params: Promise<{ month: string; year: string }> }
 ) {
+    await requireRole([UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE])
+    
     const awaitedParams = await params;
     const searchParams =  req.nextUrl.searchParams;
     const query: AllocationQueryParam = { 

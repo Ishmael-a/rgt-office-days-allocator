@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
-import { dashboardPath } from "../paths"
+import { getAuth } from "../_auth/get-auth"
+import getPathPerRole from "../_auth/get-path-per-role"
 
-export default function UnauthorizedPage() {
+export default async function UnauthorizedPage() {
+  const { user } = await getAuth()
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md text-center">
@@ -13,7 +15,7 @@ export default function UnauthorizedPage() {
         </CardHeader>
         <CardContent>
           <Button asChild>
-            <Link href={dashboardPath()}>Return to Dashboard</Link>
+            <Link href={getPathPerRole(user?.role || null)}>Return to Dashboard</Link>
           </Button>
         </CardContent>
       </Card>

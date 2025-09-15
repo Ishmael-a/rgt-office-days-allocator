@@ -8,9 +8,10 @@ import { signInPath } from "@/app/paths";
 export async function GET() {
   try {
     const { session } = await getAuth();
-
+    
     if (!session) {
-      redirect(signInPath());
+      // redirect(signInPath());
+      return NextResponse.json({ success: true, message: "Internal server error" }, { status: 500 })
     }
 
     await invalidateSession(session.id)
@@ -18,11 +19,11 @@ export async function GET() {
     // const cookieStore = await cookies()
     // cookieStore.delete(SESSION_COOKIE_NAME)
 
-    // return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true },{ status: 200 })
   } catch (error) {
     console.error("Logout error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 })
   }
-
-  redirect(signInPath());
+  
+  // redirect(signInPath());
 }

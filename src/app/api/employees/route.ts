@@ -7,7 +7,7 @@ import { employeeUpsertSchema } from "@/features/employee/schema/employee-schema
 
 export async function GET(request: NextRequest){
     try{
-        await requireRole([ UserRole.ADMIN, UserRole.MANAGER ])
+        await requireRole([ UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE ])
 
 
         const searchParams =  request.nextUrl.searchParams;

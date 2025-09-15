@@ -9,13 +9,14 @@ import React from 'react'
 import { signInSchema, SignInValues  } from "@/lib/validations"
 import PasswordInput from "../common/password-input"
 
-const initialVals:SignInValues = {
-    email: "",
-    password: "",
-}
 
-const SignInForm = () => {
+const SignInForm:React.FC<{ email?: string; password?: string }> = ({ email, password}) => {
   const { login, isPending } = useSignIn()
+  
+  const initialVals:SignInValues = {
+      email: email||"",
+      password: password||"",
+  }
 
   const handleSubmit = async (values: SignInValues) => {
     try {
@@ -30,6 +31,7 @@ const SignInForm = () => {
       initialValues={initialVals}
       validationSchema={signInSchema}
       onSubmit={handleSubmit}
+      enableReinitialize={true}
     >
         <FormikForm  className="space-y-4">
           <div className="space-y-2">

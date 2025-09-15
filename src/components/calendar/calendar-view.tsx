@@ -13,15 +13,17 @@ import { useProjectsQuery } from "@/hooks/use-projects"
 import { EmployeeWithUser } from "@/features/employee/types"
 import { months, weekDays } from "@/constants"
 import { getDaysInMonth, getFirstDayOfMonth } from "@/utils/day-month-year"
+import { User } from "@/features/users/types"
+import { UserRole } from "@/types"
 
 
 type ViewMode = "team" | "department" | "individual"
 
-export  function CalendarView() {
+export  function CalendarView({user}: { user : User}) {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1)
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
   const [viewMode, setViewMode] = useState<ViewMode>("team")
-  const [selectedEmployee, setSelectedEmployee] = useState<string>("")
+  const [selectedEmployee, setSelectedEmployee] = useState<string>(user.role === UserRole.EMPLOYEE ? user.id : "")
   const [selectedDepartment, setSelectedDepartment] = useState<string>("")
   const { data: allocationData, isLoading: isAllocationsLoading } =  useAllocationQuery({ month: currentMonth, year: currentYear})
   const { data: allocationsByUserData, isLoading: isAllocationsByUserLoading } =  useAllocationQueryByUserId({ month: currentMonth, year: currentYear, query: { userId: selectedEmployee } })
@@ -36,7 +38,8 @@ export  function CalendarView() {
   const calendarData = useMemo(() => allocationData?.data.data||[], [allocationData])
   const departments = useMemo(() => departmentData?.data.data||[], [departmentData])
   const projects = useMemo(() => projectData?.data.data||[], [projectData])
-  const employees = useMemo(() => employeeData?.data.data||[], [employeeData])
+  const employees = useMemo(() => employeeData?.data.data.employees||[], [employeeData])
+
 
 
   const navigateMonth = (direction: "prev" | "next") => {
@@ -242,7 +245,7 @@ export  function CalendarView() {
               </Select>
             </div>
 
-            {viewMode === "individual" && (
+            {viewMode === "individual" && user.role != UserRole.EMPLOYEE ? (
               <Select value={selectedEmployee} onValueChange={setSelectedEmployee}>
                 <SelectTrigger className="w-[200px]">
                   <SelectValue placeholder="Select employee" />
@@ -255,7 +258,9 @@ export  function CalendarView() {
                   ))}
                 </SelectContent>
               </Select>
-            )}
+            ) : viewMode === "individual" && user.role === UserRole.EMPLOYEE ? (
+                <Button variant={"ghost"} className="rounded-lg py-1 px-3 border items-center justify-center ">{user.name}</Button>
+            ) : null}
 
             {viewMode === "department" && (
               <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>

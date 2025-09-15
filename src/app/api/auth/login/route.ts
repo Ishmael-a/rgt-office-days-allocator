@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const session = await createSession(sessionToken, user.id)
     await setSessionCookie(sessionToken,session.expiresAt)
 
-    return NextResponse.json({ success: true, message: "Logged In Successfully." }, { status: 200 })
+    return NextResponse.json({ success: true, data: { user }, message: "Logged In Successfully." }, { status: 200 })
 
   } catch (error) {
     console.error("Login error:", error)
